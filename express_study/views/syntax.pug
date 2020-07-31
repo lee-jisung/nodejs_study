@@ -1,0 +1,94 @@
+html
+    head
+    body
+    //- div는 생략가능
+    //- #은 id, .은 class
+    div#goormDiv1 
+    #goormDiv2.divStyle
+    div.divStyle2
+    .divStyle1
+
+    //- id, class를 제외한 tag의 속성은 () 안에 표현
+    #contents(style="border:1px solid black;")
+        input(type="checkbox", checked)
+    //- 위의 표현이 아래 
+    //- <div id="contents" style="border:1px solid black;">
+    //- <input type="checkbox" checked />
+    //- </div> 
+
+//- tag 내부의 tect 표현은 tag 서술 이후 띄어쓰기 후에 text를 적음
+html
+    head
+    body
+        div#goormElement1 hello pug!
+
+//- 표현하고자 하는 text가 길다면 | 를 통해 다음 줄에 이어서 표현
+
+html
+    head
+    body
+        div#goormElement1 
+            | edu.goorm.io
+            | Goorm Site
+
+//- <html>
+//-     <head> </head>
+//-     <body>
+//-         <div id="goormElement1">edu.goorm.io 구름EDU 사이트</div>
+//-     </body>
+//- </html>
+
+//------------------------------------------------------------------
+//- 동적 콘텐츠 표현
+//- pug는 뷰 템플릿 엔진으로 동적 콘텐츠를 표현
+//- 다시 말해, 서버에서 가공한 데이터를 pug를 통해 만들어 놓은 틀에 맞게 출력 가능
+//- 모든 정보는 JSON으로 주고받으며 이렇게 전달된 데이터는 Pug문법으로 간단히 출력
+//- express가 Pug엔진에  {"title":"goorm", "message" : "Welcome to GoormEdu"}라는 
+//- JSON data를 send했을 떄, Pug에서 적절한 위치에서 출력하려면 #{fieldname}을 사용
+
+html
+    head
+        title= title
+    body   
+        div#subject div title
+        div#msg div message
+
+//- 결과 화면 
+//- <html>
+//-     <head> </head>
+//-     <body>
+//-         <div id="subject">goorm</div>
+//-         <div id="msg">Welcome to GoormEdu</div>
+//-     </body>
+//- </html>
+
+//- 전달하는 JSON data에 값이 HTML tag를 포함하고 있다면 html tag가 표시되지 않음
+//- ex, express에서 보내는 값이  {"content" : <font color='blue'>font</font>"}일 때
+
+div#goormElement div #{content}
+
+//-이러면 html상으로 <font color= ... > 이게 그냥 text로 찍혀 나옴
+//-따라서 이를 처리하기 위해서는 !{fieldname}으로 입력
+
+div#goormElement div !{content}
+
+
+
+//--------------------------------------
+//- JavaScript와 CSS
+
+//- javascript는 css나 여러 줄로 표현해야 하는 경우가 많은데,
+//- Pug에서는 <script>와 <style> tag에 한해서 | 를 사용하지 않고도 여러 줄로 구성된 코드 가능
+
+html
+    head
+    title Example
+    script
+    if (foo) {
+        bar();
+    } else {
+        baz();
+    }
+
+// 주석을 //로만 한다면 실제 출력에도 <!-- 주석 내용~~~ --!>으로 찍혀 나오며
+//- 로 주석을 처리하면 html에는 찍혀나오지 않음

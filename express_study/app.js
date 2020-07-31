@@ -11,7 +11,7 @@ const app = express(); // express()로 app 객체 생성. app을 이용해여 �
 
 // view engine setup. 12 ~ 29 line => web server 특징 기술
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());

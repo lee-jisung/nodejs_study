@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> </title>
+  </head>
+
+  <body>
+    This is index HTML pagg
+
+    <script src="/socket.io/socket.io.js"></script>
+    '
+    <script>
+      let socket = io.connect('http://localhost:3000');
+
+      socket.on('news', data => {
+        console.log(data);
+        socket.emit('client login', { clientData: 'client login' });
+      });
+    </script>
+  </body>
+</html>

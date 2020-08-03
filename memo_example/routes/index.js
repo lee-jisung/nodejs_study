@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const mongoURI = require('../config/dev');
 
-mongoose.connect(
-  'mongodb+srv://jisung:1234@mongo-memo.sgqdm.mongodb.net/<dbname>?retryWrites=true&w=majority',
-  { useNewUrlParser: true }
-);
+mongoose.connect(mongoURI.mongoURI, { useNewUrlParser: true });
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
